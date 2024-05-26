@@ -8,12 +8,12 @@ import { useStore } from "@/app/store/app-store";
 
 export const AuthForm = (props) => {
   const authContext = useStore();
-  const [authData, setAuthData] = useState({ email: "", password: "" });
+const [authData, setAuthData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState({ status: null, text: null });
   const handleInput = (e) => {
     setAuthData({ ...authData, [e.target.name]: e.target.value });
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, jwt) => {
     e.preventDefault();
     const userData = await authorize(endpoints.auth, authData);
     if (isResponseOk(userData)) {
@@ -39,7 +39,7 @@ export const AuthForm = (props) => {
       <div className={Styles["form__fields"]}>
         <label className={Styles["form__field"]}>
           <span className={Styles["form__field-title"]}>Email</span>
-          <input
+<input
   onInput={handleInput}
   className={Styles["form__field-input"]}
   name="email"
